@@ -1,6 +1,6 @@
 import java.util.*;
 
-class Quick {
+class QuickSort {
     int partition(int a[], int low, int high) {
         int pivot = a[low]; 
         int i = low + 1;
@@ -57,7 +57,7 @@ class Quick {
             a[i] = sc.nextInt();
         }
 
-        Quick q = new Quick();
+        QuickSort q = new QuickSort();
 
         q.quicksort(a, 0, n - 1);
         System.out.println("Sorted Array:");
