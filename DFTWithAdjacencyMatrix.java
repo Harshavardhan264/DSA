@@ -17,14 +17,11 @@ public class DFTWithAdjacencyMatrix {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
-        // Prompting the user for the number of vertices
         System.out.print("Enter the number of vertices in the graph: ");
         int vertices = scanner.nextInt();
         
-        // Creating an adjacency matrix based on the number of vertices
         int[][] graph = new int[vertices][vertices];
         
-        // Getting the adjacency matrix input from the user
         System.out.println("Enter the adjacency matrix (0 for no edge, 1 for edge): ");
         for (int i = 0; i < vertices; i++) {
             for (int j = 0; j < vertices; j++) {
@@ -45,3 +42,17 @@ public class DFTWithAdjacencyMatrix {
         scanner.close();
     }
 }
+
+
+//output
+Enter the number of vertices in the graph: 5
+Enter the adjacency matrix (0 for no edge, 1 for edge): 
+0 1 1 0 0
+1 0 0 1 0
+1 0 0 0 1
+0 1 0 0 1
+0 0 1 1 0
+
+DFS Traversal:
+0 1 3 4 2
+
