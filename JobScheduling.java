@@ -13,7 +13,6 @@ class Job {
 
 public class JobScheduling {
     public static void scheduleJobs(Job[] jobs) {
-        // Step 1: Sort jobs by profit (highest first)
         Arrays.sort(jobs, (a, b) -> b.profit - a.profit);
 
         int n = jobs.length;
@@ -22,7 +21,6 @@ public class JobScheduling {
         Arrays.fill(result, -1); 
         int totalProfit = 0; 
 
-        // Step 2: Assign jobs to available slots
         for (Job job : jobs) {
             for (int j = job.deadline - 1; j >= 0; j--) {
                 if (!slots[j]) { 
@@ -33,8 +31,6 @@ public class JobScheduling {
                 }
             }
         }
-
-        // Step 3: Print the job sequence and total profit
         System.out.print("Selected Jobs: ");
         for (int job : result) {
             if (job != -1) {
@@ -56,3 +52,8 @@ public class JobScheduling {
         scheduleJobs(jobs);
     }
 }
+
+//output
+Selected Jobs: 3 1 5 
+Total Profit: 142
+
