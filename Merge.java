@@ -1,72 +1,59 @@
 import java.util.Scanner;
 
-class Merge {
-    void mergesort(int A[], int low, int high) {
+public class MergeSort {
+
+    private static int[] b; 
+
+    public static void mergeSort(int[] a, int low, int high) {
         if (low < high) {
             int mid = (low + high) / 2;
-            mergesort(A, low, mid);         
-            mergesort(A, mid + 1, high);    
-            merge(A, low, mid, high);    
+            mergeSort(a, low, mid);
+            mergeSort(a, mid + 1, high);
+            merge(a, low, mid, high);
         }
     }
-    void merge(int A[], int low, int mid, int high) {
-        int i = low;
-        int j = mid + 1;
-        int k = low;
-        int[] B = new int[high - low + 1]; 
+    public static void merge(int[] a, int low, int mid, int high) {
+        int i = low, j = mid + 1, k = low;
 
-        // Merge the two sorted subarrays
         while (i <= mid && j <= high) {
-            if (A[i] <= A[j]) {
-                B[k - low] = A[i];   
-                i++;
+            if (a[i] <= a[j]) {
+                b[k++] = a[i++];
             } else {
-                B[k - low] = A[j];
-                j++;
+                b[k++] = a[j++];
             }
-            k++;
         }
 
         while (i <= mid) {
-            B[k - low] = A[i];
-            i++;
-            k++;
+            b[k++] = a[i++];
         }
 
         while (j <= high) {
-            B[k - low] = A[j];
-            j++;
-            k++;
+            b[k++] = a[j++];
         }
+
         for (int h = low; h <= high; h++) {
-            A[h] = B[h - low];
+            a[h] = b[h];
         }
     }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-    void printArray(int A[]) {
-        for (int i = 0; i < A.length; i++) {
-            System.out.print(A[i] + " ");
-        }
-        System.out.println();
-    }
+        System.out.println("Enter the number of elements in the array:");
+        int n = scanner.nextInt();
+        int[] array = new int[n];
+        b = new int[n]; 
 
-    public static void main(String args[]) {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Enter the No. of elements:");
-        int n = sc.nextInt();
-        int[] A = new int[n];
-
-        System.out.println("Enter the elements of Array:");
+        System.out.println("Enter the elements of the array:");
         for (int i = 0; i < n; i++) {
-            A[i] = sc.nextInt();
+            array[i] = scanner.nextInt();
         }
 
-        Merge m = new Merge();
-
-        m.mergesort(A, 0, n - 1);
+        mergeSort(array, 0, array.length - 1);
 
         System.out.println("Sorted Array:");
-        m.printArray(A);
+        for (int num : array) {
+            System.out.print(num + " ");
+        }
+
     }
 }
