@@ -1,66 +1,58 @@
-import java.util.*;
+import java.util.Scanner;
 
-class QuickSort {
-    int partition(int a[], int low, int high) {
-        int pivot = a[low]; 
+public class QuickSort {
+
+    public static int partition(int[] a, int low, int high) {
+        int pivot = a[low];
         int i = low + 1;
         int j = high;
 
         while (i <= j) {
-
-            while (i <= high && a[i] <= pivot) {
+            while (i <= j && a[i] <= pivot) {
                 i++;
             }
-
-            while (a[j] > pivot) {
+            while (i <= j && a[j] >= pivot) {
                 j--;
             }
-
             if (i < j) {
-                interchange(a, i, j);
+                swap(a, i, j);
             }
         }
-
-        interchange(a, low, j);
-        return j; 
+        swap(a, low, j);
+        return j;
     }
 
-    void interchange(int a[], int low, int high) {
-        int temp = a[low];
-        a[low] = a[high];
-        a[high] = temp;
+    public static void swap(int[] a, int i, int j) {
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
     }
-    void quicksort(int a[], int low, int high) {
+
+    public static void quickSort(int[] a, int low, int high) {
         if (low < high) {
-            int j = partition(a, low, high);  
-            quicksort(a, low, j - 1);         
-            quicksort(a, j + 1, high);        
+            int j = partition(a, low, high);
+            quickSort(a, low, j - 1);
+            quickSort(a, j + 1, high);
         }
     }
 
-    void printArray(int a[]) {
-        for (int i = 0; i < a.length; i++) {
-            System.out.print(a[i] + " ");
-        }
-        System.out.println();
-    }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-    public static void main(String args[]) {
-        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the number of elements in the array:");
+        int n = scanner.nextInt();
+        int[] array = new int[n];
 
-        System.out.println("Enter the No.of elements:");
-        int n = sc.nextInt();
-        int[] a = new int[n];
-
-        System.out.println("Enter the elements of Array:");
+        System.out.println("Enter the elements of the array:");
         for (int i = 0; i < n; i++) {
-            a[i] = sc.nextInt();
+            array[i] = scanner.nextInt();
         }
 
-        QuickSort q = new QuickSort();
+        quickSort(array, 0, array.length - 1);
 
-        q.quicksort(a, 0, n - 1);
         System.out.println("Sorted Array:");
-        q.printArray(a);
+        for (int num : array) {
+            System.out.print(num + " ");
+        }
     }
 }
