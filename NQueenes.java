@@ -1,72 +1,57 @@
-import java.util.Scanner;
-
-public class GraphColoring {
-    private int n, m;
-    private int[][] G;
-    private int[] x;
-
-    public GraphColoring(int n, int m) {
-        this.n = n;
-        this.m = m;
-        this.G = new int[n][n];
-        this.x = new int[n];
-    }
-
-    public void mColoring(int k) {
-        while (true) {
-            nextValue(k);
-            if (x[k] == 0) return;
-            if (k == n - 1)
-                printSolution();
-            else
-                mColoring(k + 1);
+public class NQueens {
+    private static void printSolution(char[][] board) {
+        for (char[] row : board) {
+            System.out.println(new String(row));
         }
-    }
-
-    private void nextValue(int k) {
-        while (true) {
-            x[k] = (x[k] + 1) % (m + 1);
-            if (x[k] == 0) return;
-
-            boolean valid = true;
-            for (int j = 0; j < n; j++) {
-                if (G[k][j] != 0 && x[k] == x[j]) {
-                    valid = false;
-                    break;
-                }
-            }
-
-            if (valid) return;
-        }
-    }
-
-    private void printSolution() {
-        for (int i = 0; i < n; i++)
-            System.out.print(x[i] + " ");
         System.out.println();
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter number of vertices: ");
-        int n = scanner.nextInt();
-
-        System.out.print("Enter number of colors: ");
-        int m = scanner.nextInt();
-
-        GraphColoring graphColoring = new GraphColoring(n, m);
-
-        System.out.println("Enter adjacency matrix:");
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                graphColoring.G[i][j] = scanner.nextInt();
-            }
+    private static boolean isSafe(char[][] board, int row, int col, int n) {
+        for (int i = 0; i < row; i++) {
+            if (board[i][col] == 'Q') return false;
+        }
+        for (int i = row, j = col; i >= 0 && j >= 0; i--, j--) {
+            if (board[i][j] == 'Q') return false;
         }
 
-        System.out.println("Possible Colorings:");
-        graphColoring.mColoring(0);
+        for (int i = row, j = col; i >= 0 && j < n; i--, j++) {
+            if (board[i][j] == 'Q') return false;
+        }
 
-        scanner.close();
+        return true;
+    }
+
+    private static boolean solve(char[][] board, int row, int n) {
+        if (row == n) {
+            printSolution(board);
+            return true;
+        }
+
+        boolean foundSolution = false;
+        for (int col = 0; col < n; col++) {
+            if (isSafe(board, row, col, n)) {
+                board[row][col] = 'Q';
+                foundSolution |= solve(board, row + 1, n);
+                board[row][col] = '.'; 
+            }
+        }
+        return foundSolution;
+    }
+
+    public static void solveNQueens(int n) {
+        char[][] board = new char[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                board[i][j] = '.';
+            }
+        }
+        if (!solve(board, 0, n)) {
+            System.out.println("No solution exists");
+        }
+    }
+
+    public static void main(String[] args) {
+        int n = 8;
+        solveNQueens(n);
     }
 }
