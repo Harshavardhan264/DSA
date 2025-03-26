@@ -94,3 +94,10 @@ public class MinHeap {
         minHeap.printHeap();
     }
 }
+
+//output
+Min Heap:
+1 2 4 5 3 6 
+Deleting the minimum element (root)...
+Min Heap after deletion:
+2 3 4 5 6 
