@@ -93,3 +93,10 @@ public class MaxHeap {
         maxHeap.printHeap();
     }
 }
+
+//output
+Max Heap:
+40 30 15 10 20 
+Deleting the maximum element (root)...
+Max Heap after deletion:
+30 20 15 10 
