@@ -20,7 +20,7 @@ public class Knapsack01DP {
     public static void main(String[] args) {
         int[] weights = {10, 20, 30};
         int[] profits = {60, 100, 120};
-        int W = 50;
+        int m = 50;
 
         int maxProfit = knapsack(weights, profits, m);
         System.out.println("Maximum profit in Knapsack: " + maxProfit);
